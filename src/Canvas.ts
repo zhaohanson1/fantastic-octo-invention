@@ -1,17 +1,15 @@
-import { MoveableLine } from "./assets/MoveableLine";
-import type { Draw2DObject } from "./properties/DrawObject";
-import { Line } from "./graphics/Line";
-import { Sprite } from "./graphics/Sprite";
 import { Vector2D } from "./properties/Vector2D";
 import { Timer } from "./timer";
+import { Firefox } from "./assets/Firefox";
+import { MoveableLine } from "./assets/MoveableLine";
+import { Scene } from "./scene/scene";
 
 export class Canvas {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
   timer: Timer;
-  line1?: Line;
 
-  objectArray: Draw2DObject[] = [];
+  scene: Scene;
 
   constructor() {
     this.canvas = document.createElement("canvas");
@@ -25,21 +23,16 @@ export class Canvas {
     this.timer = new Timer();
     this.timer.start();
 
-    const line1 = new Line(100, 100, 200, 200);
-    const mline1 = new MoveableLine(line1);
+    const mline1 = new MoveableLine(100, 100, 200, 200);
 
-    const mozLogo = document.createElement("img");
-
-    mozLogo.src =
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/800px-Firefox_logo%2C_2019.svg.png";
-    const mozLogoSpirte = new Sprite(
-      mozLogo,
-      new Vector2D(500, 500),
+    const mozLogoSpirte = new Firefox(
+      new Vector2D(100, 100),
       new Vector2D(48, 48)
     );
 
-    this.objectArray.push(mozLogoSpirte);
-    this.objectArray.push(mline1);
+    this.scene = new Scene();
+    this.scene.addObject(mline1);
+    this.scene.addObject(mozLogoSpirte);
 
     this.resize();
     window.addEventListener("resize", this.resize.bind(this));
@@ -63,14 +56,14 @@ export class Canvas {
   }
 
   init() {
-    this.objectArray.forEach((object) => object.draw(this.ctx));
+    this.scene.render(this.ctx);
     this.render();
   }
 
   render() {
     requestAnimationFrame(() => {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.objectArray.forEach((object) => object.draw(this.ctx));
+      this.scene.render(this.ctx);
       this.render();
     });
   }
