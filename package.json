@@ -10,7 +10,7 @@
   "description": "",
   "license": "ISC",
   "scripts": {
-    "start": "bun index.html",
+    "start": "bun --watch --hot index.html",
     "test": "bun test",
     "tsc": "tsc -w"
   }
