@@ -59,23 +59,25 @@ export class Vector2D {
   }
 
   // Rotate about the another point
-  rotate(deg: number, origin = new Vector2D(0, 0)) {
+  rotateDeg(deg: number, origin = new Vector2D(0, 0)) {
     const { x: ox, y: oy } = origin;
 
+    // Shift the vector to the origin
     const dx = this.x - ox;
     const dy = this.y - oy;
 
-    const sinRotation = Math.sin(deg);
-    const cosRotation = Math.cos(deg);
+    const rad = (deg * Math.PI) / 180;
+    const sinRotation = Math.sin(rad);
+    const cosRotation = Math.cos(rad);
 
     return new Vector2D(
-      cosRotation * dx + sinRotation * dy + ox,
-      -sinRotation * dx + cosRotation * dy + oy
+      cosRotation * dx - sinRotation * dy + ox,
+      sinRotation * dx + cosRotation * dy + oy
     );
   }
 
   // Convert the vector to a string for easy logging
   toString() {
-    return `(${this.x}, ${this.y})`;
+    return `Vector2D(${this.x}, ${this.y})`;
   }
 }

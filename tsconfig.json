@@ -1,32 +1,42 @@
 {
-    "compilerOptions": {
-      "target": "esnext",                     // Use the latest ECMAScript version (esnext allows using the latest features)
-      "module": "esnext",                     // Use the ES module system for better tree-shaking and module handling
-      "moduleResolution": "node",             // Resolves modules using Node's module resolution algorithm (recommended for most modern projects)
-      "strict": true,                         // Enables all strict type-checking options
-      "esModuleInterop": true,                // Allows default imports from CommonJS modules
-      "skipLibCheck": true,                   // Skips type checking of declaration files (improves compile time)
-      "forceConsistentCasingInFileNames": true, // Ensures that file names are consistently cased
-      "resolveJsonModule": true,              // Allows importing JSON files as modules
-      "lib": ["esnext", "dom"],               // Includes ESNext features and DOM types
-      "allowJs": true,                        // Allows JavaScript files to be part of the TypeScript project (optional, useful for incremental migration)
-      "checkJs": false,                       // Prevents checking JavaScript files for errors (set to true to type-check JS files)
-      "noEmit": false,                        // Allows emitting output files (set to `true` if you only want type-checking)
-      "outDir": "./dist",                     // Output directory for compiled JavaScript files
-      "baseUrl": ".",                         // Base directory for non-relative module names
-      "paths": {                              // Module path mappings (optional)
-        "*": ["node_modules/*"]
-      }
+  "compilerOptions": {
+    "target": "esnext",                     // Use the latest ECMAScript version (esnext allows using the latest features)
+    "module": "esnext",                     // Use the ES module system for better tree-shaking and module handling
+    "moduleDetection": "force",
+    "esModuleInterop": true,                // Allows default imports from CommonJS modules
+    "forceConsistentCasingInFileNames": true, // Ensures that file names are consistently cased
+    "resolveJsonModule": true,              // Allows importing JSON files as modules
+    "lib": ["esnext", "dom"],               // Includes ESNext features and DOM types
+    "allowJs": true,                        // Allows JavaScript files to be part of the TypeScript project (optional, useful for incremental migration)
+    "checkJs": false,                       // Prevents checking JavaScript files for errors (set to true to type-check JS files)
+    "outDir": "./dist",                     // Output directory for compiled JavaScript files
+    "baseUrl": ".",                         // Base directory for non-relative module names
+    "paths": {                              // Module path mappings (optional)
+      "*": ["node_modules/*"]
     },
-    "include": [
-      "src/**/*"                              // Include all files inside the "src" directory
-    ],
-    "exclude": [
-      "node_modules",                         // Exclude the node_modules directory from the compilation
-      "dist"                                  // Exclude the dist directory (compiled output)
-    ],
-    "watchOptions": {
-      "fallbackPolling": "priorityinterval"
-    }
+    // Bundler mode
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,                         // Allows emitting output files (set to `true` if you only want type-checking)
+    // Best practices
+    "strict": true,                         // Enables all strict type-checking options
+    "skipLibCheck": true,                   // Skips type checking of declaration files (improves compile time)
+    "noFallthroughCasesInSwitch": true,
+    // Some stricter flags
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": true
+  },
+  "include": [
+    "src/**/*",                             // Include all files inside the "src" directory
+    "test/index.test.ts"
+  ],
+  "exclude": [
+    "node_modules",                         // Exclude the node_modules directory from the compilation
+    "dist"                                  // Exclude the dist directory (compiled output)
+  ],
+  "watchOptions": {
+    "fallbackPolling": "priorityinterval"
   }
-  
+}
