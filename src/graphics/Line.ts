@@ -1,6 +1,7 @@
-import { Vector2D } from "../Vector2D";
+import type { Draw2DObject } from "../properties/DrawObject";
+import { Vector2D } from "../properties/Vector2D";
 
-export class Line {
+export class Line implements Draw2DObject {
   point1: Vector2D;
   point2: Vector2D;
 

@@ -1,11 +1,17 @@
-import { Line } from "./graphics/primitives/Line";
+import { MoveableLine } from "./assets/MoveableLine";
+import type { Draw2DObject } from "./properties/DrawObject";
+import { Line } from "./graphics/Line";
+import { Sprite } from "./graphics/Sprite";
+import { Vector2D } from "./properties/Vector2D";
 import { Timer } from "./timer";
 
 export class Canvas {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
   timer: Timer;
-  line1: Line;
+  line1?: Line;
+
+  objectArray: Draw2DObject[] = [];
 
   constructor() {
     this.canvas = document.createElement("canvas");
@@ -19,10 +25,24 @@ export class Canvas {
     this.timer = new Timer();
     this.timer.start();
 
-    this.line1 = new Line(100, 100, 200, 200);
+    const line1 = new Line(100, 100, 200, 200);
+    const mline1 = new MoveableLine(line1);
+
+    const mozLogo = document.createElement("img");
+
+    mozLogo.src =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/800px-Firefox_logo%2C_2019.svg.png";
+    const mozLogoSpirte = new Sprite(
+      mozLogo,
+      new Vector2D(500, 500),
+      new Vector2D(48, 48)
+    );
+
+    this.objectArray.push(mozLogoSpirte);
+    this.objectArray.push(mline1);
 
     this.resize();
-    window.addEventListener("resize", () => this.resize.bind(this));
+    window.addEventListener("resize", this.resize.bind(this));
   }
 
   resize() {
@@ -43,30 +63,14 @@ export class Canvas {
   }
 
   init() {
-    // const mozLogo = document.createElement("img");
-
-    // mozLogo.src =
-    //   "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/800px-Firefox_logo%2C_2019.svg.png";
-    // const mozLogoSpirte = new Sprite(
-    //   mozLogo,
-    //   new Vector2D(500, 500),
-    //   new Vector2D(48, 48)
-    // );
-
-    // mozLogo.onload = () => {
-    //   mozLogoSpirte.draw(this.ctx);
-    // };
-    this.line1.draw(this.ctx);
-
+    this.objectArray.forEach((object) => object.draw(this.ctx));
     this.render();
   }
 
   render() {
     requestAnimationFrame(() => {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      this.line1.x1 = this.line1.x1 + this.timer.deltaTime * 100;
-      this.line1.draw(this.ctx);
-      console.log(this.line1.point1.toString());
+      this.objectArray.forEach((object) => object.draw(this.ctx));
       this.render();
     });
   }

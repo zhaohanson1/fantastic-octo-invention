@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Vector2D } from "../graphics/Vector2D";
+import { Vector2D } from "../properties/Vector2D";
 
 describe("Vector2D", () => {
   it("should create a vector with default values", () => {

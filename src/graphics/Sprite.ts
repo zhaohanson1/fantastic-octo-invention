@@ -1,6 +1,7 @@
-import { Vector2D } from "./Vector2D.js";
+import type { Draw2DObject } from "../properties/DrawObject.js";
+import { Vector2D } from "../properties/Vector2D.js";
 
-export class Sprite {
+export class Sprite implements Draw2DObject {
   position: Vector2D;
   image: CanvasImageSource;
   size: Vector2D;

@@ -1,4 +1,4 @@
-import { Vector2D } from "../Vector2D";
+import { Vector2D } from "../properties/Vector2D";
 
 export class Rectangle {
   position: Vector2D;
