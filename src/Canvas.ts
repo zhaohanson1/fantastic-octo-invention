@@ -26,7 +26,7 @@ export class Canvas {
     const mline1 = new MoveableLine(100, 100, 200, 200);
 
     const mozLogoSpirte = new Firefox(
-      new Vector2D(100, 100),
+      new Vector2D(500, 500),
       new Vector2D(48, 48)
     );
 

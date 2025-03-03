@@ -16,10 +16,11 @@ export class Scene {
   }
 
   render(ctx: CanvasRenderingContext2D) {
-    this.sceneObjects.forEach((object) => object.draw(ctx));
+    this.sceneObjects.forEach((object) => object.update(this));
+    this.sceneObjects.forEach((object) => object.draw(ctx, this));
   }
 
-  getCollisionObjects() {
+  getCollidableObjects() {
     return this.sceneObjects.filter((object) => object.isCollidable);
   }
 }

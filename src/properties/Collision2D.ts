@@ -17,4 +17,10 @@ export class Collision2D {
       this.bottomRight.y > other.topLeft.y
     );
   }
+
+  update(newPosition: Vector2D) {
+    const delta = newPosition.subtract(this.topLeft);
+    this.topLeft = this.topLeft.add(delta);
+    this.bottomRight = this.bottomRight.add(delta);
+  }
 }
